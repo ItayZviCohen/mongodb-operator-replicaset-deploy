@@ -11,4 +11,10 @@
     body_format: json
     status_code: 202,200,201
     return_content: true
-    register: organization_details
+  register: organization_details
+
+- name: Create organization details secret
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'organization_secret.yaml.j2') }}"
+
