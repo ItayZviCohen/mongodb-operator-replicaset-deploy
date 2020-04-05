@@ -1,0 +1,14 @@
+---
+
+- name: Create an Ops Manager organization
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/orgs"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: POST
+    body:
+      name: "{{ k8s_namespace }}"
+    body_format: json
+    status_code: 202,200,201
+    return_content: true
+    register: organization_details
