@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ operator_project_details_configmap_name }}
+  namespace: {{ k8s_namespace }}
+data:
+  projectName: {{ mongodb_replicaset_name }}
+  orgId: {{ organization_id }}
+  baseUrl: {{ ops_manager_url }}

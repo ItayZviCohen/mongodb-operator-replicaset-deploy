@@ -11,10 +11,34 @@
     body_format: json
     status_code: 202,200,201
     return_content: true
-  register: organization_details
-
-- name: Create organization details secret
+  register: ops_manager_organization_creation_details
+- name: Create an organization programmatic api key
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: POST
+    body:
+      desc: "Kubernetes operator credentials for namespace {{ k8s_namespace }}"
+      roles: ["ORG_OWNER"]
+    body_format: json
+    status_code: 202,200,201
+    return_content: true
+  register: ops_manager_organization_creation_api_key
+- name: Whitelist the cluster's CIDR for programmatic api key
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys/{{ ops_manager_organization_creation_api_key.json.id }}/whitelist"
+    user: "{{ ops_manager_admin_public_key }}"                                                                      
+    password: "{{ ops_manager_admin_private_key }}"
+    method: POST
+    body: [{ "cidrBlock": "{{ k8s_cidr_ip_range }}" }]
+    body_format: json
+    status_code: 202,200,201
+    return_content: true
+- name: Create organization details and secrets
   k8s:
     state: present
-    definition: "{{ lookup('template', 'organization_secret.yaml.j2') }}"
-
+    definition: "{{ lookup('template', 'organization_credentials_secret.yaml.j2') }}"
+- name: Set organization ID
+  set_fact:
+    organization_id: "{{ ops_manager_organization_creation_details.json.id }}"

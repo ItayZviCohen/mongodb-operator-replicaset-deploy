@@ -1,0 +1,25 @@
+---
+
+- name: Update MongoBD resource
+  hosts: localhost
+  tasks:
+    - name: Get MongoDB resource definition
+      k8s_info:
+        host: "{{ k8s_api_url }}"
+        api_version: v1
+        kind: MongoDB
+        name: "{{ mongodb_replicaset_name }}"
+        namespace: "{{ k8s_namespace }}"
+      register: operator_replicaset_details
+    - debug:
+        msg: "{{ operator_replicaset_details }}"
+    - name: Set MongoDB resource parameter
+      set_fact:
+        mongodb_replicaset_members: "{{ mongodb_patch_members }}"
+        mongodb_replicaset_version: "{{ mongodb_patch_version }}"
+        mongodb_replicaset_: "{{ mongodb_patch_version }}"
+        mongodb_replicaset_version: "{{ mongodb_patch_version }}"
+    - name: Create the replica set
+      k8s:
+        state: present
+        definition: "{{ lookup('template', 'replicaset_resource.yaml.j2') }}"

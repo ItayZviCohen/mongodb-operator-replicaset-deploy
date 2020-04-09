@@ -1,0 +1,40 @@
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: {{ mongodb_replicaset_name }}
+  namespace: {{ k8s_namespace }}
+spec:
+  members: {{ mongodb_replicaset_members }}
+  version: {{ mongodb_replicaset_version }}
+  opsManager:
+    configMapRef:
+      name: {{ operator_project_details_configmap_name }}
+  credentials: {{ mongodb_organization_credentials_secret_name }}
+  type: ReplicaSet
+  exposedExternally: {{ mongodb_replicaset_external }}
+  persistent: {{ mongodb_replicaset_persistent.enabled }}
+  security:
+    authentication:
+      enabled: {{ mongodb_replicaset_auth.enabled }}
+      modes:  ['{{ mongodb_replicaset_auth.mode }}']
+  podSpec:
+    memory: {{ mongodb_replicaset_memory.limit }}
+    memoryRequests: {{ mongodb_replicaset_memory.request }}
+    cpu: '{{ mongodb_replicaset_cpu.limit }}'
+    cpuRequests: '{{ mongodb_replicaset_cpu.request }}'
+{% if mongodb_replicaset_persistent.enabled %}
+    persistence:
+{% if mongodb_replicaset_persistent.multiple.enabled == "multiple"  %}
+      multiple:
+        data:
+          storage: {{ mongodb_replicaset_persistent.multiple.data }}
+        journal:
+          storage: {{ mongodb_replicaset_persistent.multiple.journal }}
+        logs:
+          storage: {{ mongodb_replicaset_persistent.multiple.logs }}
+{% else %}
+      single:
+        storage: {{ mongodb_replicaset_persistent.single.storage }}
+{% endif %}
+{% endif %}
