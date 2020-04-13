@@ -27,14 +27,10 @@
     - name: Create an Ops Manager organization and save its info in the namespace
       include_tasks: create_org.yml
       when: "(operator_organization_details.resources | length) == 0"
-    - debug:
-        msg: "{{ organization_id }}"
     - name: Create project details configuration
       k8s:
         state: present
         definition: "{{ lookup('template', 'project_details.yaml.j2') }}"
-    - debug:
-        msg: "{{ lookup('template', 'replicaset_resource.yaml.j2') }}"
     - name: Create the replica set
       k8s:
         state: present

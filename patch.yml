@@ -11,8 +11,6 @@
         name: "{{ mongodb_replicaset_name }}"
         namespace: "{{ k8s_namespace }}"
       register: operator_replicaset_details
-    - debug:
-        msg: "{{ operator_replicaset_details }}"
     - name: Set MongoDB resource parameter
       set_fact:
         mongodb_replicaset_members: "{{ mongodb_patch_members }}"
