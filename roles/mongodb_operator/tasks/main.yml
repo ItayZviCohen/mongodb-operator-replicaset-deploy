@@ -1,0 +1,30 @@
+---
+
+- name: Check if the replica set already exists
+  k8s_info:
+    host: "{{ k8s_api_url }}"
+    api_version: v1
+    kind: MongoDB
+    name: "{{ mongodb_replicaset_name }}"
+    namespace: "{{ k8s_namespace }}"
+  register: mongodb_replicaset_exists
+
+- name: Deploy the replica set if not already exists and needs to be present
+  include_tasks: deploy.yml
+  when: "( mongodb_replicaset_exists.resources | length ) == 0 and state == 'present'"
+
+- name: Update the replica set if already exixts and needs to be present
+  include_tasks: patch.yml
+  when: "( mongodb_replicaset_exists.resources | length ) > 0 and state == 'present'"
+
+- name: Check if resource is in running state
+  k8s_info:
+    host: "{{ k8s_api_url }}"
+    api_version: v1
+    kind: MongoDB
+    name: "{{ mongodb_replicaset_name }}"
+    namespace: "{{ k8s_namespace }}"
+  register: mongodb_replicaset_phase
+  retries: 150
+  delay: 10
+  until: "mongodb_replicaset_phase.resources[0].status.phase == 'Running'"

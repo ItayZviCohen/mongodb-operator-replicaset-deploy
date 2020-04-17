@@ -1,0 +1,39 @@
+---
+
+- name: Validate Ops Manager and k8s api server urls
+  assert:
+    that:
+      - "{{ item.condition }}"
+    fail_msg: "{{ item.msg }}"
+    quiet: true
+  loop:
+    - { condition: "ops_manager_url is match('^https?://.*$')", msg: "Ops Manager's URL is not a valid one!" }
+    - { condition: "k8s_api_url is regex('^https?://.*$')", msg: "The kubernetes api's URL is not a valid one!" }
+
+- name: Confgiure access for cluster-wide mongoDB operator
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'operator_access.yaml.j2') }}"
+
+- name: Check if the namespace already has an Ops Manager user
+  k8s_info:
+    host: "{{ k8s_api_url }}"
+    api_version: v1
+    kind: ConfigMap
+    name: "{{ operator_organization_details_configmap_name }}"
+    namespace: "{{ k8s_namespace }}"
+  register: operator_organization_details
+
+- name: Create an Ops Manager organization and save its info in the namespace
+  include_tasks: create_org.yml
+  when: "(operator_organization_details.resources | length) == 0"
+
+- name: Create project details configuration
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'project_details.yaml.j2') }}"
+
+- name: Create the replica set
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'replicaset_resource.yaml.j2') }}"
