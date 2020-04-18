@@ -14,16 +14,21 @@ ansible-playbook deploy.yml -e "ops_manager_url='https://<Ops manager/Cloud mana
 
 ### Prerequisites
 
-Packages:
- - ansible >= 2.9
+Kubernetes:
+  - A kubernetes cluster
+  - A [MongoDB kubernetes operator](https://docs.mongodb.com/kubernetes-operator/stable) insatlled with [cluster-wide topology](https://docs.mongodb.com/kubernetes-operator/stable/tutorial/plan-k8s-operator-install/#cluster-wide-scope)
+  - A MongoDB [Ops Manager](https://www.mongodb.com/products/ops-manager) or a [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager)
 
-Python:
- - ansible >= 2.9
- - python >= 2.7
- - openshift >= 0.6
- - PyYAML >= 3.11
+On the Ansible Runner:
 
+ Packages:
+  - ansible >= 2.9
 
+ Python:
+  - ansible >= 2.9
+  - python >= 2.7
+  - openshift >= 0.6
+  - PyYAML >= 3.11
 
 ## Built With
 
