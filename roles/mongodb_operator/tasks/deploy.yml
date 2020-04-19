@@ -25,8 +25,8 @@
     kind: ConfigMap
     name: "{{ operator_organization_details_configmap_name }}"
     namespace: "{{ k8s_namespace }}"
-    verify_ssl: no                                                                                             
-    api_key: "{{ k8s_api_key }}" 
+    verify_ssl: no
+    api_key: "{{ k8s_api_key }}"
   register: operator_organization_details
 
 - name: Create an Ops Manager organization and save its info in the namespace
@@ -38,7 +38,7 @@
     host: "{{ k8s_api_url }}"
     state: present
     definition: "{{ lookup('template', 'project_details.yaml.j2') }}"
-    verify_ssl: no                                                                                              
+    verify_ssl: no
     api_key: "{{ k8s_api_key }}"
 
 - name: Create the replica set

@@ -15,7 +15,9 @@
 
 - name: Create an organization programmatic api key
   uri:
-    url: "{{ ops_manager_url }}/api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys"
+    url: >-
+      {{ ops_manager_url }}
+      /api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys
     user: "{{ ops_manager_admin_public_key }}"
     password: "{{ ops_manager_admin_private_key }}"
     method: POST
@@ -29,8 +31,10 @@
 
 - name: Whitelist the cluster's CIDR for programmatic api key
   uri:
-    url: "{{ ops_manager_url }}/api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys/{{ ops_manager_organization_creation_api_key.json.id }}/whitelist"
-    user: "{{ ops_manager_admin_public_key }}"                                                                      
+    url: >-
+      {{ ops_manager_url }}
+      /api/public/v1.0/orgs/{{ ops_manager_organization_creation_details.json.id }}/apiKeys/{{ ops_manager_organization_creation_api_key.json.id }}/whitelist
+    user: "{{ ops_manager_admin_public_key }}"
     password: "{{ ops_manager_admin_private_key }}"
     method: POST
     body: [{ "cidrBlock": "{{ k8s_source_ip_cidr }}" }]
@@ -44,7 +48,7 @@
     state: present
     definition: "{{ lookup('template', 'organization_credentials_secret.yaml.j2') }}"
     verify_ssl: no
-    api_key: "{{ k8s_api_key}}"
+    api_key: "{{ k8s_api_key }}"
 
 - name: Set organization ID
   set_fact:
