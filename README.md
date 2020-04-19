@@ -29,6 +29,7 @@ On the Ansible Runner:
   - python >= 2.7
   - openshift >= 0.6
   - PyYAML >= 3.11
+  - See [requirements.txt](https://github.com/ItayZviCohen/mongodb-operator-replicaset-deploy/blob/master/requirements.txt) for exact dependencies.
 
 ## Built With
 
