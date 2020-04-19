@@ -1,15 +1,9 @@
 ---
 
-- name: Get MongoDB resource definition
-  k8s_info:
-    host: "{{ k8s_api_url }}"
-    api_version: v1
-    kind: MongoDB
-    name: "{{ mongodb_replicaset_name }}"
-    namespace: "{{ k8s_namespace }}"
-  register: operator_replicaset_details
-
 - name: Update the replica set
   k8s:
+    host: "{{ k8s_api_url }}"
     state: present
     definition: "{{ lookup('template', 'replicaset_resource.yaml.j2') }}"
+    verify_ssl: no
+    api_key: "{{ k8s_api_key }}"

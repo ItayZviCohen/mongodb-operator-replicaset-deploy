@@ -9,8 +9,8 @@ k8s_cidr_ip_range: "10.0.0.0/24"
 operator_organization_details_configmap_name : "mongodb-{{ k8s_namespace }}-organization-details"
 
 mongodb_replicaset_name: "{{ k8s_namespace }}"
-mongodb_replicaset_members: "{{ operator_replicaset_details.resources[0].spec.members | default('3') }}"
-mongodb_replicaset_version: "{{ operator_replicaset_details.resources[0].spec.version | default('4.2.2-ent') }}"
+mongodb_replicaset_members: "{{ mongodb_replicaset_details.resources[0].spec.members | default('3') }}"
+mongodb_replicaset_version: "{{ mongodb_replicaset_details.resources[0].spec.version | default('4.2.2-ent') }}"
 mongodb_replicaset_external: 'false'
 mongodb_replicaset_memory:
   request: "500M"                                                                                 
