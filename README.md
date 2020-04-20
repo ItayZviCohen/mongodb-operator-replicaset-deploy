@@ -9,15 +9,15 @@ git clone git@github.com:ItayZviCohen/mongodb-operator-replicaset-deploy.git
 
 cd mongodb-operator-replicaset-deploy
 
-ansible-playbook deploy.yml -e "ops_manager_url='https://<Ops manager/Cloud manager url>:<port>' k8s_api_url='https://<k8s api server address>' k8s_namespace='tit' mongodb_replicaset_name='<replica set name>' ops_manager_admin_public_key='<global public api key>' ops_manager_admin_private_key='<global private api key>'"
+ansible-playbook deploy.yml -e "k8s_source_ip_cidr='<cidr of the cluster source ip>' ops_manager_url='<Ops Manager/Cloud manager URL>' k8s_api_url='<kuberneets api server URL>' k8s_namespace='<kubernetes namespace>' mongodb_replicaset_name='<replcaset's name>' ops_manager_admin_public_key='<Ops manager/Cloud manager global public api key>' ops_manager_admin_private_key='<Ops manager/ Cloud Manager global private api key' k8s_api_key='<kubernetes api bearer token>' [mongodb_replicaset_members='3' mongodb_replicaset_version='4.2.2-ent']"
 ```
 
 ### Prerequisites
 
 Kubernetes:
-  - A kubernetes cluster
-  - A [MongoDB kubernetes operator](https://docs.mongodb.com/kubernetes-operator/stable) insatlled with [cluster-wide topology](https://docs.mongodb.com/kubernetes-operator/stable/tutorial/plan-k8s-operator-install/#cluster-wide-scope)
-  - A MongoDB [Ops Manager](https://www.mongodb.com/products/ops-manager) or a [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager)
+  - A kubernetes cluster.
+  - A [MongoDB kubernetes operator](https://docs.mongodb.com/kubernetes-operator/stable) insatlled with [cluster-wide topology](https://docs.mongodb.com/kubernetes-operator/stable/tutorial/plan-k8s-operator-install/#cluster-wide-scope).
+  - A MongoDB [Ops Manager](https://www.mongodb.com/products/ops-manager) or a [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager) instance.
 
 On the Ansible Runner:
 
@@ -34,10 +34,6 @@ On the Ansible Runner:
 ## Built With
 
 * [Ansible](https://docs.ansible.com/) - Configuration management tool
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
