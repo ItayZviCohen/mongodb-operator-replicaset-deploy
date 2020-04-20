@@ -5,7 +5,7 @@ metadata:
   name: {{ mongodb_replicaset_name }}
   namespace: {{ k8s_namespace }}
 spec:
-  members: {{ mongodb_replicaset_members }}
+  members: {{ mongodb_replicaset_members | string }}
   version: {{ mongodb_replicaset_version }}
   opsManager:
     configMapRef:
