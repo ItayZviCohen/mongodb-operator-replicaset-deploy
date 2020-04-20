@@ -7,15 +7,17 @@
     kind: MongoDB
     name: "{{ mongodb_replicaset_name }}"
     namespace: "{{ k8s_namespace }}"
-  register: mongodb_replicaset_exists
+    api_key: "{{ k8s_api_key }}"
+    verify_ssl: no
+  register: mongodb_replicaset_details
 
 - name: Deploy the replica set if not already exists and needs to be present
   include_tasks: deploy.yml
-  when: "( mongodb_replicaset_exists.resources | length ) == 0 and state == 'present'"
+  when: "( mongodb_replicaset_details.resources | length ) == 0 and state == 'present'"
 
 - name: Update the replica set if already exixts and needs to be present
   include_tasks: patch.yml
-  when: "( mongodb_replicaset_exists.resources | length ) > 0 and state == 'present'"
+  when: "( mongodb_replicaset_details.resources | length ) > 0 and state == 'present'"
 
 - name: Check if resource is in running state
   k8s_info:
@@ -24,6 +26,8 @@
     kind: MongoDB
     name: "{{ mongodb_replicaset_name }}"
     namespace: "{{ k8s_namespace }}"
+    api_key: "{{ k8s_api_key }}"
+    verify_ssl: no
   register: mongodb_replicaset_phase
   retries: 150
   delay: 10
