@@ -1,6 +1,6 @@
 ---
 
-hashi_vault_secrets: "secret={{ hashi_vault_secret_engine }}/data/{{ hashi_vault_secret_name }}:data  token={{ hashi_vault_secret_token }} url={{ hashi_vault_secret_url }} validate_certs=False"
-ops_manager_admin_public_key: "{{ hashi_vault_secrets | json_query('ops_manager_admin_public_key')}}"
-ops_manager_admin_private_key: "{{ hashi_vault_secrets | json_query('ops_manager_admin_private_key')}}"
-k8s_api_key: "{{ hashi_vault_secrets | json_query('k8s_api_key')}}"
+hashi_vault_credentials: "secret={{ hashi_vault_secret_engine }}/data/{{ hashi_vault_secret_name }}:data  token={{ hashi_vault_secret_token }} url={{ hashi_vault_secret_url }} validate_certs=False"
+ops_manager_admin_public_key: "{{ hashi_vault_credentials | json_query('ops_manager_admin_public_key')}}"
+ops_manager_admin_private_key: "{{ hashi_vault_credentials | json_query('ops_manager_admin_private_key')}}"
+k8s_api_key: "{{ hashi_vault_credentials | json_query('k8s_api_key')}}"
