@@ -1,0 +1,180 @@
+[
+   {
+      "asset_type":"credential_type",
+      "injectors":{
+         "extra_vars":{
+            "hashi_vault_secret_token":"{{ vault_token }}",
+            "hashi_vault_secret_url":"{{ vault_url }}"
+         }
+      },
+      "inputs":{
+         "fields":[
+            {
+               "id":"vault_token",
+               "label":"Vault access token",
+               "secret":true,
+               "type":"string"
+            },
+            {
+               "id":"vault_url",
+               "label":"Vault API URL",
+               "type":"string"
+            }
+         ],
+         "required":[
+            "vault_token",
+            "vault_url"
+         ]
+      },
+      "kind":"cloud",
+      "name":"Hashicorp Vault Token"
+   },
+   {
+      "asset_relation":{
+         "roles":[
+            {
+               "name":"Admin",
+               "team":[
+
+               ],
+               "user":[
+                  "admin"
+               ]
+            },
+            {
+               "name":"Use",
+               "team":[
+
+               ],
+               "user":[
+
+               ]
+            },
+            {
+               "name":"Read",
+               "team":[
+
+               ],
+               "user":[
+
+               ]
+            }
+         ]
+      },
+      "asset_type":"credential",
+      "credential_type":"Hashicorp Vault Token",
+      "description":"For hashi_vault secret lookup",
+      "name":"Hashicorp Vault Token",
+      "organization":"DBA"
+   },
+   {
+      "asset_relation":{
+         "credentials":[
+            "Hashicorp Vault Token"
+         ],
+         "labels":[
+
+         ],
+         "notification_templates_error":[
+
+         ],
+         "notification_templates_success":[
+
+         ],
+         "roles":[
+            {
+               "name":"Admin",
+               "team":[
+
+               ],
+               "user":[
+                  "admin"
+               ]
+            },
+            {
+               "name":"Execute",
+               "team":[
+
+               ],
+               "user":[
+
+               ]
+            },
+            {
+               "name":"Read",
+               "team":[
+
+               ],
+               "user":[
+
+               ]
+            }
+         ],
+         "schedules":[
+
+         ],
+         "survey_spec":{
+            "description":"",
+            "name":"",
+            "spec":[
+               {
+                  "choices":"",
+                  "default":"mongoreplica",
+                  "max":1023,
+                  "min":0,
+                  "new_question":true,
+                  "question_description":"Name of the Replica Set",
+                  "question_name":"Name",
+                  "required":true,
+                  "type":"text",
+                  "variable":"mongodb_replicaset_name"
+               },
+               {
+                  "choices":"",
+                  "default":3,
+                  "max":100,
+                  "min":0,
+                  "new_question":true,
+                  "question_description":"Number of Replica Set members",
+                  "question_name":"Members",
+                  "required":true,
+                  "type":"integer",
+                  "variable":"mongodb_replicaset_members"
+               },
+               {
+                  "choices":"4.2.6-ent\n4.2.5-ent\n4.2.3-ent\n4.2.2-ent",
+                  "default":"4.2.6-ent",
+                  "max":null,
+                  "min":null,
+                  "question_description":"Version of MongoDB",
+                  "question_name":"Version",
+                  "required":true,
+                  "type":"multiplechoice",
+                  "variable":"mongodb_replicaset_version"
+               },
+               {
+                  "choices":"",
+                  "default":"test",
+                  "max":1024,
+                  "min":0,
+                  "new_question":true,
+                  "question_description":"Replica Set's project name",
+                  "question_name":"Project Name",
+                  "required":true,
+                  "type":"text",
+                  "variable":"k8s_namespace"
+               }
+            ]
+         }
+      },
+      "asset_type":"job_template",
+      "description":"Deploy MongoDB on K8s",
+      "extra_vars":"---\nk8s_source_ip_cidr: '<value>'\nops_manager_url: '<value>'\nk8s_api_url: '<value>'\nhashi_vault_secret_engine: '<value>'\nhashi_vault_secret_name: '<value>'",
+      "inventory":"Demo Inventory",
+      "name":"Deploy MongoDB",
+      "playbook":"deploy.yml",
+      "project":"MongoDB Deployment",
+      "survey_enabled":true,
+      "verbosity":3
+   }
+]
