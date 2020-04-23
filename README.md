@@ -18,7 +18,7 @@ ansible-playbook deploy.yml -e "k8s_source_ip_cidr='<cidr of the cluster source 
 
 Kubernetes:
   - A kubernetes cluster.
-  - A [MongoDB kubernetes operator](https://docs.mongodb.com/kubernetes-operator/stable) insatlled with [cluster-wide topology](https://docs.mongodb.com/kubernetes-operator/stable/tutorial/plan-k8s-operator-install/#cluster-wide-scope).
+  - A [MongoDB kubernetes operator](https://docs.mongodb.com/kubernetes-operator/stable) installed with [cluster-wide topology](https://docs.mongodb.com/kubernetes-operator/stable/tutorial/plan-k8s-operator-install/#cluster-wide-scope).
   - A MongoDB [Ops Manager](https://www.mongodb.com/products/ops-manager) or a [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager) instance.
 
 On the Ansible Runner:
