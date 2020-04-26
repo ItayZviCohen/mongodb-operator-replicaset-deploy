@@ -74,17 +74,6 @@
                   "variable":"mongodb_replicaset_members"
                },
                {
-                  "choices":"4.2.6-ent\n4.2.5-ent\n4.2.3-ent\n4.2.2-ent",
-                  "default":"4.2.6-ent",
-                  "max":null,
-                  "min":null,
-                  "question_description":"Version of MongoDB",
-                  "question_name":"Version",
-                  "required":true,
-                  "type":"multiplechoice",
-                  "variable":"mongodb_replicaset_version"
-               },
-               {
                   "choices":"",
                   "default":"test",
                   "max":1024,
@@ -100,10 +89,10 @@
          }
       },
       "asset_type":"job_template",
-      "description":"Deploy MongoDB on K8s",
+      "description":"Scale MongoDB on K8s",
       "extra_vars":"---\nk8s_source_ip_cidr: 'value'\nops_manager_url: 'value'\nk8s_api_url: 'value'\nhashi_vault_secret_engine: 'value'\nhashi_vault_secret_name: 'value'",
       "inventory":"Demo Inventory",
-      "name":"Deploy MongoDB Export",
+      "name":"Scale MongoDB Export",
       "playbook":"deploy.yml",
       "project":"MongoDB Deployment",
       "survey_enabled":true

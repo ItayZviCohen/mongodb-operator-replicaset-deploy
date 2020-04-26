@@ -62,18 +62,6 @@
                   "variable":"mongodb_replicaset_name"
                },
                {
-                  "choices":"",
-                  "default":3,
-                  "max":100,
-                  "min":0,
-                  "new_question":true,
-                  "question_description":"Number of Replica Set members",
-                  "question_name":"Members",
-                  "required":true,
-                  "type":"integer",
-                  "variable":"mongodb_replicaset_members"
-               },
-               {
                   "choices":"4.2.6-ent\n4.2.5-ent\n4.2.3-ent\n4.2.2-ent",
                   "default":"4.2.6-ent",
                   "max":null,
@@ -100,10 +88,10 @@
          }
       },
       "asset_type":"job_template",
-      "description":"Deploy MongoDB on K8s",
+      "description":"Upgrade MongoDB on K8s",
       "extra_vars":"---\nk8s_source_ip_cidr: 'value'\nops_manager_url: 'value'\nk8s_api_url: 'value'\nhashi_vault_secret_engine: 'value'\nhashi_vault_secret_name: 'value'",
       "inventory":"Demo Inventory",
-      "name":"Deploy MongoDB Export",
+      "name":"Upgrade MongoDB Export",
       "playbook":"deploy.yml",
       "project":"MongoDB Deployment",
       "survey_enabled":true
