@@ -1,6 +1,7 @@
 ---
 
 state: present
+mongodb_project_owner_explicit: false
 
 organization_id: "{{ operator_organization_details.resources[0].data.organization_id }}"
 mongodb_organization_credentials_secret_name: "mongodb-{{ k8s_namespace }}-organization-credentials"

@@ -1,0 +1,23 @@
+- name : Get the user ID by username
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/users/byName/{{ ops_manager_project_owner }}"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: GET
+    status_code: 202,200,201
+    return_content: true
+  register: ops_manager_project_owner_id
+
+- name: Add Ops Manager user to project
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0\
+          /groups/{{ mongodb_replicaset_phase.resources[0].status.link.split('/') | last }}\
+          /users"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: POST
+    body:
+      [{ "id": "{{ ops_manager_project_owner_id.json.id }}", "roles": [{ "roleName": "GROUP_OWNER" }]}]
+    body_format: json
+    status_code: 202,200,201
+    return_content: true
