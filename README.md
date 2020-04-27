@@ -29,7 +29,7 @@ On the Ansible Runner:
  Python:
   See [requirements.txt](https://github.com/ItayZviCohen/mongodb-operator-replicaset-deploy/blob/master/requirements.txt) for exact dependencies.
 
-## AWX Support
+## AWX Integration
 
 Create a container group with this pod configuration:
 ```
@@ -47,8 +47,8 @@ spec:
         - infinity
 ```
 
-## Hashicorp Vault support
-This playbook support Hashicorp Vault's kv2 secret engine.
+## Hashicorp Vault Integration
+This playbook integrates Hashicorp Vault's kv2 secret engine.
 All the secret variables need to be stored in one secret like so:
 
 ```
