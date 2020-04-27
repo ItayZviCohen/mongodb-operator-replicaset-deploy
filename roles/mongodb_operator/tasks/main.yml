@@ -35,4 +35,4 @@
 
 - name: Add project owner privileges to {{ ops_manager_project_owner | default('none') }} if the project just got created
   include_tasks: assign_owner.yml
-  when: "(( mongodb_replicaset_details.resources | length ) == 0 and state == 'present') or mongodb_project_owner_explicit"
+  when: "ops_manager_project_owner is defined and ops_manager_project_owner != ''"
