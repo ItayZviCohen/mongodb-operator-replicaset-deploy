@@ -32,3 +32,7 @@
   retries: 150
   delay: 10
   until: "mongodb_replicaset_phase.resources[0].status.phase == 'Running'"
+
+- name: Add project owner privileges to {{ ops_manager_project_owner | default('none') }} if the project just got created
+  include_tasks: assign_owner.yml
+  when: "ops_manager_project_owner is defined and ops_manager_project_owner != ''"
