@@ -95,6 +95,18 @@
                   "required":true,
                   "type":"text",
                   "variable":"k8s_namespace"
+               },
+               {
+                  "choices":"",
+                  "default":"",
+                  "max":1024,
+                  "min":0,
+                  "new_question":true,
+                  "question_description":"Owner of the Ops Manager project",
+                  "question_name":"Project Owner",
+                  "required":false,
+                  "type":"text",
+                  "variable":"ops_manager_project_owner"
                }
             ]
          }
