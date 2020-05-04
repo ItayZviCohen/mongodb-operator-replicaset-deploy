@@ -2,5 +2,3 @@
   hosts: localhost
   roles:
     - role: mongodb_operator
-      vars:
-        mongodb_replicaset_backup: "{{ mongodb_replicaset_backup | bool }}"

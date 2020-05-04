@@ -24,3 +24,6 @@
       syncSource: "PRIMARY"
     status_code: 202,200,201
     return_content: true
+  register: ops_manager_backup_config_state
+  failed_when: "ops_manager_backup_config_state.status not in [202,200,201] and \
+                ops_manager_backup_config_state.json.errorCode != 'CANNOT_START_BACKUP_INVALID_STATE'"
