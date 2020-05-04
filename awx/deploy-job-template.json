@@ -107,6 +107,18 @@
                   "required":false,
                   "type":"text",
                   "variable":"ops_manager_project_owner"
+               },
+               {
+                  "choices":"yes\nno",
+                  "default":"no",
+                  "max":null,
+                  "min":null,
+                  "new_question":true,
+                  "question_description":"Backups for the replica set",
+                  "question_name":"Auto Backup",
+                  "required":true,
+                  "type":"multiplechoice",
+                  "variable":"mongodb_replicaset_backup"
                }
             ]
          }

@@ -7,6 +7,7 @@ mongodb_organization_credentials_secret_name: "mongodb-{{ k8s_namespace }}-organ
 operator_project_details_configmap_name: "mongodb-{{ mongodb_replicaset_name }}-project-details"
 operator_organization_details_configmap_name : "mongodb-{{ k8s_namespace }}-organization-details"
 
+mongodb_replicaset_backup: false
 mongodb_replicaset_name: "{{ k8s_namespace }}"
 mongodb_replicaset_members: "{{ mongodb_replicaset_details.resources[0].spec.members | default('3', true) }}"
 mongodb_replicaset_version: "{{ mongodb_replicaset_details.resources[0].spec.version | default('4.2.2-ent', true) }}"
