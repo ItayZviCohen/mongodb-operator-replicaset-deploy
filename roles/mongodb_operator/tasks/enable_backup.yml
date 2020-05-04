@@ -1,0 +1,26 @@
+---
+
+- name: Get cluster ID in the project
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/groups/{{ mongodb_replicaset_phase.resources[0].status.link.split('/') | last }}/backupConfigs"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: GET
+    status_code: 202,200,201
+    return_content: true
+  register: ops_manager_project_backup_details
+
+- name: Configure replica set's backup
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/groups/{{ mongodb_replicaset_phase.resources[0].status.link.split('/') | last }}\
+          /backupConfigs/{{ ops_manager_project_backup_details.json.results[0].clusterId }}"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: PATCH
+    body_format: json
+    body:
+      statusName: "STARTED"
+      storageEngineName: "WIRED_TIGER"
+      syncSource: "PRIMARY"
+    status_code: 202,200,201
+    return_content: true
