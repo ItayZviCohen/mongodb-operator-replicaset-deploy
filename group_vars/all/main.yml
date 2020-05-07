@@ -1,6 +1,13 @@
 ---
 
+# For the automation's KV2 engine
 hashi_vault_data: "{{ lookup('hashi_vault', 'secret=' + hashi_vault_secret_engine + '/data/' + hashi_vault_secret_name + ':data  token=' + hashi_vault_secret_token + ' url=' + hashi_vault_secret_url + ' validate_certs=False') }}"
 ops_manager_admin_public_key: "{{ hashi_vault_data | json_query('ops_manager_admin_public_key')}}"
 ops_manager_admin_private_key: "{{ hashi_vault_data | json_query('ops_manager_admin_private_key')}}"
 k8s_api_key: "{{ hashi_vault_data | json_query('k8s_api_key')}}"
+
+# For user's KV2 engine
+operator_hashi_vault_data: "{{ lookup('hashi_vault', 'secret=' + operator_hashi_vault_secret_engine + '/data/' + operator_hashi_vault_secret_name + ':data  token=' + operator_hashi_vault_secret_token + ' url=' + operator_hashi_vault_secret_url + ' validate_certs=False') }}"
+operator_hashi_vault_secret_token: "{{ hashi_vault_secret_token }}"
+operator_hashi_vault_secret_url: "{{ hashi_vault_secret_url }}"
+ops_manager_organization_id: "{{ operator_hashi_vault_data | json_query('organization_id') }}"

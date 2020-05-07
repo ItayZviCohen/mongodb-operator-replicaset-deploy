@@ -2,10 +2,8 @@
 
 state: present
 
-organization_id: "{{ operator_organization_details.resources[0].data.organization_id }}"
 mongodb_organization_credentials_secret_name: "mongodb-{{ k8s_namespace }}-organization-credentials"
 operator_project_details_configmap_name: "mongodb-{{ mongodb_replicaset_name }}-project-details"
-operator_organization_details_configmap_name : "mongodb-{{ k8s_namespace }}-organization-details"
 
 mongodb_replicaset_backup: false
 mongodb_replicaset_name: "{{ k8s_namespace }}"
