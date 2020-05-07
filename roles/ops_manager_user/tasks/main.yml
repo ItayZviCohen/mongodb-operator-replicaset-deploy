@@ -1,0 +1,20 @@
+---
+
+- name: Create Ops Manager User
+  uri:
+    url: "{{ ops_manager_url }}/api/public/v1.0/users"
+    user: "{{ ops_manager_admin_public_key }}"
+    password: "{{ ops_manager_admin_private_key }}"
+    method: POST
+    body:
+      username: "{{ ops_manager_username }}"
+      emailAddress: "{{ ops_manager_email }}"
+      firstName: "{{ ops_manager_first_name }}"
+      lastName: "{{ ops_manager_last_name }}"
+      password: "{{ ops_manager_password }}"
+    body_format: json
+    status_code: 202,200,201
+    return_content: true
+  register: ops_manager_user_creation_details
+  failed_when: "ops_manager_user_creation_details.status not in [200,201,202] and ops_manager_user_creation_details.json.errorCode != 'USER_ALREADY_EXISTS'"
+  when: "state == 'present'"

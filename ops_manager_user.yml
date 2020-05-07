@@ -1,0 +1,8 @@
+---
+
+- name: Create a user in Ops Manager
+  hosts: localhost
+  roles:
+    - role: ops_manager_user
+      vars:
+        state: present
