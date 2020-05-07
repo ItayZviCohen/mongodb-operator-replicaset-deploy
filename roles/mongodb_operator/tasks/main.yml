@@ -1,5 +1,26 @@
 ---
 
+- name: Owner user checks
+  block:
+    - name: Fetch whether the Ops Manager user exists
+      uri:
+        url: "{{ ops_manager_url }}/api/public/v1.0/users/byName/{{ ops_manager_project_owner }}"
+        user: "{{ ops_manager_admin_public_key }}"
+        password: "{{ ops_manager_admin_private_key }}"
+        method: GET
+        body_format: json
+        status_code: 202,200,201
+        return_content: true
+      register: ops_manager_owner_user_exists
+      failed_when: "ops_manager_owner_user_exists.status not in [200,201,202] and ops_manager_owner_user_exists.json.errorCode != 'USERNAME_NOT_FOUND'"
+    - name: Assert that the user does exist
+      assert:
+        that:
+          - "ops_manager_owner_user_exists.json.errorCode is not defined"
+        msg: "Please create your user at {{ ops_manager_url }}"
+  when: "ops_manager_project_owner is defined and (ops_manager_project_owner | length) > 0"
+        
+
 - name: Check if the replica set already exists
   k8s_info:
     host: "{{ k8s_api_url }}"

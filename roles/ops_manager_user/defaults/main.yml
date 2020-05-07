@@ -1,0 +1,6 @@
+---
+
+state: present
+ops_manager_password: "{{ lookup('password', '/tmp/passwordfile-' + ops_manager_username + ' length=9 chars=ascii_letter,digits,-,#') }}"
+ops_manager_first_name: "{{ ops_manager_username }}"
+ops_manager_last_name: "{{ ops_manager_username }}"
